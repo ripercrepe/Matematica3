@@ -1,0 +1,53 @@
+from sympy import *
+init_printing()
+print("Ejercicio 1")
+
+x, y = symbols('x y')
+f = 3*x**2 + 1
+plot(f)
+f_prima = diff(f,x)
+derivada_en_3 = f_prima.subs(x,3)
+print(f"La derivada en x = 3 es {derivada_en_3}")
+
+print("Ejercicio 2")
+print("a)")
+f = (2*x + 1)**3
+f_prima = diff(f,x)
+print(f"La derivada con sympy es {f_prima}")
+print("b)")
+g = (x**3 - 3*x**2 + 1)**-3
+g_prima = diff(g,x)
+print(f"La derivada de {g} con sympy es {g_prima}")
+
+
+print("c)")
+h = (x - 1/x**2)**5
+h_prima = diff(h,x)
+print(f"La derivada con sympy es")
+h_prima
+
+print("d)")
+j = ln(x**2)
+j_prima = diff(j,x)
+print("La derivada con sympy es:")
+j_prima
+
+print("e)")
+k = E**sqrt(x)
+k_prima = diff(k,x)
+print("La derivada con sympy es:")
+k_prima
+
+print("f)")
+z = sqrt(ln(sin(x)))
+z_prima = diff(z,x)
+print("La derivada con sympy es:")
+z_prima
+
+
+
+
+
+
+
+

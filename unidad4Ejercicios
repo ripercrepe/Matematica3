@@ -19,35 +19,44 @@ bigMacData['Difference from US'] = (
     .str.strip()           # saco espacios
 )
 
-print(bigMacData)
-
 #convierto los strings a numeros
 bigMacData['Big Mac Index 2024'] = pd.to_numeric(bigMacData['Big Mac Index 2024'], errors='coerce') 
 bigMacData['Difference from US'] = pd.to_numeric(bigMacData['Difference from US'], errors='coerce') 
 
-print(bigMacData)
-
 precioEnDolar = bigMacData["Big Mac Index 2024"]
 
+#asignando algunos valores
 promedioBigMac = precioEnDolar.mean()
-valorMedioBigMac = precioEnDolar.median()
+medianaBigMac = precioEnDolar.median()
+variacionEstandarBigMac = precioEnDolar.std()
+
+
 
 #1. Obtener el costo medio de un Big Mac en los países seleccionados.
 print(f"Costo medio de un big mac: ${round(promedioBigMac,2)}")
 #2. Encontrar el valor medio de la muestra. Observar los datos, ¿hay valores atípicos?
-print(f"Valor del medio de un big mac: ${round(valorMedioBigMac,2)}")
+print(f"Valor del medio de un big mac: ${round(medianaBigMac,2)}")
 #3. ¿Cuál es el precio más común del Big Mac?
 print(f"Precio mas comun del Big mac: {round(precioEnDolar.mode().values[0],2)}")
 #4. ¿Cuánto varían los precios en relación con el valor medio o promedio?
 print(f"Variacion estandar de los precios {round(precioEnDolar.var(),2)}")
-#5 
-plt.hist(precioEnDolar,bins=10)
-plt.xlabel('Precio')
+
+
+#5 Histograma
+plt.figure(figsize=(10,6))
+plt.hist(precioEnDolar, bins=10, color='lightblue', edgecolor='black')
+plt.axvline(promedioBigMac, color='red', linestyle='--', label=f'Media: {promedioBigMac:.2f}')
+plt.axvline(medianaBigMac, color='green', linestyle=':', label=f'Mediana: {medianaBigMac:.2f}')
+plt.title('Distribución del Índice Big Mac 2024')
+plt.xlabel('Precio (USD)')
 plt.ylabel('Frecuencia')
-plt.title('Precio en Dolares de la Big Mac')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+
 
 #haciendo el boxplot
-# hay que crear un ax para poder modificarlo
+#hay que crear un ax para poder modificarlo
 fig, ax = plt.subplots(figsize=(10, 10))
 
 bigMacData.boxplot(column=['Big Mac Index 2024'], 
@@ -55,9 +64,8 @@ bigMacData.boxplot(column=['Big Mac Index 2024'],
                    ax = ax, 
                    boxprops=dict(facecolor='red'),
                    medianprops=dict(color='yellow', linewidth=5))
-ax.set_title('Boxplot of Big Mac Index by Country', fontsize=14)
+ax.set_title('Boxplot del Índice Big Mac 2024', fontsize=14)
 ax.set_ylabel('Precio en dolares', fontsize=12)
 
 plt.show()
-
 
